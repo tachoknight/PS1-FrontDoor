@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/ps1-full.jpg</file>
+        <file>Banner.qml</file>
+        <file>BannerForm.ui.qml</file>
+        <file>EventSchedule.qml</file>
+        <file>EventScheduleForm.ui.qml</file>
+        <file>URLBanner.qml</file>
+        <file>URLBannerForm.ui.qml</file>
+        <file>images/ps1-logo.png</file>
+    </qresource>
+</RCC>

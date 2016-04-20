@@ -1,0 +1,17 @@
+group 'org.pumpingstationone'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'net.sf.biweekly:biweekly:0.4.5'
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
+}

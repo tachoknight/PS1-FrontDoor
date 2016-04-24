@@ -1,10 +1,7 @@
 #include "scheduletimer.h"
 
 ScheduleTimer::ScheduleTimer(QObject *parent) : QObject(parent), networkAccessMgr(this)
-{
-    // Start by filling the list before the timer gets to it
-    getSchedule();
-
+{   
     qInfo() << "Starting schedule timer...";
 
     // 1000 == 1 second
@@ -13,6 +10,9 @@ ScheduleTimer::ScheduleTimer(QObject *parent) : QObject(parent), networkAccessMg
 
     // Connect the finished signal to our slot which gets the response
     connect(&networkAccessMgr, SIGNAL(finished(QNetworkReply*)), this, SLOT(gotScheduleData(QNetworkReply*)));
+
+    // Start by filling the list before the timer gets to it
+    getSchedule();
 }
 
 void ScheduleTimer::transformJson(const QByteArray &responseJson)
@@ -30,8 +30,8 @@ void ScheduleTimer::transformJson(const QByteArray &responseJson)
         newEvent.description = obj["description"].toString();
         newEvent.startDate = obj["startDate"].toString();
         newEvent.endDate = obj["endDate"].toString("");
-        newEvent.startEpoch = obj["startEpoch"].toDouble();
-        newEvent.endEpoch = obj["endEpoch"].toDouble();
+        newEvent.startEpoch = obj["startEpoch"].toVariant().toLongLong();
+        newEvent.endEpoch = obj["endEpoch"].toVariant().toLongLong();
 
         if (resetList)
         {
@@ -88,6 +88,8 @@ void ScheduleTimer::gotScheduleData(QNetworkReply* reply)
         {
             if (count++ > 4)
                 break;
+
+            qInfo() << "Adding " << event.description << " at " << event.startDate;
 
             eventList.append((QObject*) new ScheduleDataObject(event.description, event.startDate, event.endDate));
         }
